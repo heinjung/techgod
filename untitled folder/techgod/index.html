@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<head>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content = "width = device-width, initial-scale = 1.0, minimum-scale = 1, maximum-scale = 1, user-scalable = no" />
+  <meta name="apple-mobile-web-app-title" content="onlyWebPro" />
+
+<style type="text/css">
+body{
+    margin:0;
+    padding: 0;
+    overflow: visible;
+}
+div{
+    margin:0;
+    padding: 0
+}
+#wholewrap{
+    width: 100vw; 
+    height: 100vh; 
+    background-size: 100% 100%;
+    z-index: 1;
+}
+.imgs{
+    top:0;
+    height: 20%;
+    width: 100%;
+    position: relative;
+    display: block;
+    z-index: 10;
+}
+#imgs1{
+    height:19%;
+    z-index: 7
+}
+#imgs2{
+    height:55%;
+    margin-top: 0%;
+    margin-bottom: 0%;
+    z-index: 6
+}
+#imgs3{
+    height:21%;
+    z-index: 6;
+    margin-bottom: 0%
+}
+#imgs4{
+    height:5%;
+    z-index: 6;
+    width: 100%;
+    left: 0%
+}
+.back{
+    width: 100vw; 
+    height: 100vh;
+    background-size: 100% 100%;
+    position: absolute;
+    top:0;
+    z-index: 1; 
+}
+    </style>
+</head>
+<body>
+    <div id="wholewrap">
+      <img src="aah-15.png" class="imgs" id="imgs1">
+      <img src="aah-16.png" class="imgs" id="imgs2">
+      <img src="aah-17.png" class="imgs" id="imgs3">
+      <img src="aah-18.png" class="imgs" id="imgs4">
+	<div id="back1" style="background-image: url('back5.png'); z-index: 1" class="back"></div>
+	<div id="back2" style="background-image: url('back2.png'); z-index: 2; opacity: 0" class="back"></div>
+    <div id="back5" style="background-image: url('back3.png'); z-index: 3; opacity: 0" class="back"></div>
+</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script type="text/javascript">
+document.addEventListener('touchmove', function(e) {
+    e.preventDefault();
+}, { passive: false });
+      var countcur=0                         
+     
+						        document.addEventListener('touchstart', function (e) {
+                                e.preventDefault();
+						        findphonexy('down', e)
+						       });
+						        document.addEventListener('touchmove', function (e) {
+						            findphonexy('move', e)
+						       });
+						        document.addEventListener('touchend', function (e) {
+						            findphonexy('up', e)
+						       });
+
+            function findphonexy(res, e) {
+      var h = window.innerHeight*5/100;
+						        if (res == 'down') {    
+                                    // Audio1.play();  
+                                countcur++
+                                if(countcur>5){countcur = 1}
+						                downed = true                                                     
+						                yDown = e.touches[0].clientY;   
+						                currentPos =0;
+						                incrementer  =0;
+										}
+
+
+						            if (res == 'move') {
+						                if(downed){  
+                          if(e.touches[0].clientY < yDown){
+                                yDiff = e.touches[0].clientY - yDown ;
+                                var opa = -yDiff / 230
+                                document.getElementById("back2").style.opacity = opa
+
+
+                              if($("#imgs1").height()>0){
+                                        		$("#imgs1").css({'height': 3.8*h+(yDiff) + "px"});
+                                        		$("#imgs2").css({'height': 11*h-(yDiff*0.4) + "px"});
+                                        		$("#imgs3").css({'height': 4.1*h-(yDiff*0.3) + "px"});
+                                            $("#imgs4").css({'height': 1.1*h-(yDiff*0.3) + "px"});
+                                          }else if($("#imgs2").height()>0){
+                                            $("#imgs2").css({'height': 16.3*h+(yDiff) + "px"});
+                                            $("#imgs3").css({'height': 3.35*h-(yDiff*0.5) + "px"});
+                                            $("#imgs4").css({'height': 0.35*h-(yDiff*0.5) + "px"});
+                                            console.log($("#imgs3").height()-(yDiff))
+                                            console.log($("#imgs4").height()+(yDiff))
+                                          }else{
+                                            $("#imgs3").css({'height': 27.8*h+(yDiff) + "px"});
+                                            $("#imgs4").css({'height': -7.8*h-(yDiff) + "px"});
+                                          }
+
+                   					}else{
+                            // scrolldown
+                                yDiff = yDown - e.touches[0].clientY ;
+                                var opa = -yDiff / 230
+                                document.getElementById("back5").style.opacity = opa
+                              if($("#imgs4").height()>0){
+                                          $("#imgs1").css({'height': 3.8*h-(yDiff*0.75) + "px"});
+                                          $("#imgs2").css({'height': 11*h-(yDiff*0.75) + "px"});
+                                          $("#imgs3").css({'height': 4.1*h+(yDiff) + "px"});
+                                          $("#imgs4").css({'height': 1.1*h+(yDiff*0.5) + "px"});
+                                        }else if($("#imgs3").height()>0){
+                                          $("#imgs1").css({'height': 3.3*h-(yDiff) + "px"});
+                                          $("#imgs2").css({'height': 13.7*h+(yDiff*0.5) + "px"});
+                                          $("#imgs3").css({'height': 3*h+(yDiff*0.5) + "px"});
+                                            console.log($("#imgs1").height()+(yDiff))
+                                            console.log($("#imgs2").height()-(yDiff))
+                                        }else{
+                                          $("#imgs1").css({'height': 3.3*h-(yDiff) + "px"});
+                                          $("#imgs2").css({'height': 16.7*h+(yDiff) + "px"});
+
+                                        }
+                          }
+
+           							}
+                }
+						        if (res == 'up' || res == "out") {
+						            jQuery.easing.def = 'easeOutBounce';
+            $("#back2").animate({'opacity': 0},{ duration: 700, queue: false });
+            $("#back5").animate({'opacity': 0},{ duration: 700, queue: false });
+            $("#imgs1").animate({'height': 3.8*h + "px"},{ duration: 700, queue: false });
+            $("#imgs2").animate({'height': 11*h + "px"},{ duration: 700, queue: false });
+            $("#imgs3").animate({'height': 4.1*h + "px"},{ duration: 700, queue: false });
+            $("#imgs4").animate({'height': 1.1*h + "px"},{ duration: 700, queue: false });
+						                downed = false
+						            }
+						        }
+    </script>
+</body>
+</html>
